@@ -5,7 +5,9 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
-
+button {
+  padding: 7%;
+}
 a {
   color: inherit;
   text-decoration: none;
@@ -13,4 +15,18 @@ a {
 
 * {
   box-sizing: border-box;
+}
+.popup {
+  display: flex;
+  position: fixed;
+
+  top: 1px;
+  height: 100vh;
+  width: 100%;
+  background: #092431;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0.8;
+  align-items: center;
+  color: white;
 }
