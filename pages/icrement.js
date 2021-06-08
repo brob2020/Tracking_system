@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { TextField } from '@material-ui/core';
+import React, { useState, useEffect } from "react";
+import { TextField } from "@material-ui/core";
+import Link from "next/link";
 
 const icrement = ({ datas }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   const SearchById = () => {
     console.log(id);
@@ -24,26 +25,33 @@ const icrement = ({ datas }) => {
           <div>
             {datas.data
               .filter((data) => {
-                if (searchTerm == '') {
+                if (searchTerm == "") {
                   console.log(data.Incident == undefined);
                   return data;
                 } else if (
                   data.Incident.toLowerCase().includes(
-                    searchTerm.toLocaleLowerCase(),
+                    searchTerm.toLocaleLowerCase()
                   )
                 ) {
                   return data;
                 }
               })
               .map((data) => (
-                <li className="card">
-                  <h3>Incident #</h3>
-                  {data.Incident}
-                  <h3> Requested By</h3> {data.Name}
-                  {data.Account}
-                  {data.Serial_Number}
-                  {data.Description}
-                </li>
+                <Link
+                  href={"/Modelisation/ " + data.Incident}
+                  key={data.Incident}
+                >
+                  <a>
+                    <li className="card">
+                      <h3>Incident #</h3>
+                      {data.Incident}
+                      <h3> Requested By</h3> {data.Name}
+                      {data.Account}
+                      {data.Serial_Number}
+                      {data.Description}
+                    </li>
+                  </a>
+                </Link>
               ))}
           </div>
         </ul>
@@ -54,7 +62,7 @@ const icrement = ({ datas }) => {
 export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
-  const res = await fetch('http://localhost:3000/api/sendData');
+  const res = await fetch("http://localhost:3000/api/sendData");
   const datas = await res.json();
   console.log(datas.data[1]);
 

@@ -1,7 +1,7 @@
-import InsertData from '../../modele/insertData';
-import dbConnect from '../../utils/dbConnect';
-import Joi from 'joi';
-import nodemailer from 'nodemailer';
+import InsertData from "../../modele/insertData";
+import dbConnect from "../../utils/dbConnect";
+import Joi from "joi";
+import nodemailer from "nodemailer";
 dbConnect();
 
 function sendValidation(data) {
@@ -28,20 +28,20 @@ export default async (req, res) => {
     PhoneNumber,
     User_Name,
     Type,
-    Incident
+    Incident,
   } = req.body;
   const { method, body } = req;
-  if (method === 'GET') {
+  if (method === "GET") {
     try {
       const files = await InsertData.find({});
       res.status(200).json({ success: true, data: files });
     } catch (err) {
       res.status(400).json({ success: false, error: err });
     }
-  } else if (method === 'POST') {
+  } else if (method === "POST") {
     //joi validation
-    console.log('joi start ');
-    console.log('body is here ');
+    console.log("joi start ");
+    console.log("body is here ");
 
     //const { error } = sendValidation(body);
 
@@ -66,11 +66,11 @@ export default async (req, res) => {
       //setup the transport for the email
 
       const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
+        host: "smtp.gmail.com",
         port: 465,
         secure: true,
         auth: {
-          type: 'login',
+          type: "login",
 
           user: process.env.EMAIL_USERNAME,
           pass: process.env.EMAIL_PASSWORD,
@@ -78,7 +78,7 @@ export default async (req, res) => {
       });
       const emailRes = await transporter.sendMail({
         from: `${User_Name}`,
-        to: 'brobr6394@gmail.com',
+        to: "brobr6394@gmail.com",
         subject: ` ${Type} Ticket request for ${Account} from ${User_Name}`,
         html: `<p>Please process with this ticket </p><br>
        <p><strong> customer  Name: </strong> ${Name} </p><br>
@@ -92,7 +92,7 @@ export default async (req, res) => {
        <p><strong> Mail : </strong> ${User_Name} </p><br>
        `,
       });
-      console.log('message send ', emailRes.messageId);
+      console.log("message send ", emailRes.messageId);
     } catch (e) {
       console.log(e);
       res.status(400).json({ success: false });
