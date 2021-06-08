@@ -4,6 +4,9 @@ const dataSchema = new mongoose.Schema({
   Account: {
     type: String,
   },
+  Incident: {
+    type: String,
+  },
   Type: {
     type: String,
   },

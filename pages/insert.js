@@ -28,6 +28,14 @@ const Insert = () => {
     submit,
     validate
   );
+  const [id, setId] = useState(26020101)
+  const [incident, setIncident] = useState("TRCK" + String(id))
+
+  const IncreID = () => {
+    setId(id + 1)
+    console.log(String(id).length)
+    setIncident("TRCK" + String(id));
+  }
   const handleAccount = (event) => {
     setAccount(event.target.value);
     console.log(event.target.value);
@@ -43,8 +51,10 @@ const Insert = () => {
   // send data to database
   async function submit(e) {
     e.preventDefault();
+    IncreID();
     values.Account = account;
     values.Type = type;
+    values.Incident = incident;
     console.log(values.Account);
     console.log(values.Type);
     console.log("test");
@@ -93,6 +103,13 @@ const Insert = () => {
       <div>
         {" "}
         <h2> Data entry</h2>
+        <TextField
+          name="Incident #"
+          variant="outlined"
+          disabled={true}
+          value={incident}
+          fullWidth={true}
+        />
       </div>
       {!good ? <Loader /> : " "}
       <form onSubmit={submit} noValidate>
@@ -167,6 +184,7 @@ const Insert = () => {
             <TextField
               onChange={handleChange}
               label="Address"
+              name="Address"
               variant="outlined"
               fullWidth={true}
             />
