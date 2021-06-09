@@ -1,12 +1,14 @@
-import React from "react";
+import React from 'react';
 
 /// let tell the broswer how many page he wil load
 
+/*
 export const getStaticPaths = async () => {
   //const res = await fetch("http://localhost:3000/api/sendData");
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  const res = await fetch('https://jsonplaceholder.typicode.com/users');
   const data = await res.json();
 
+  /*
   const paths = data.map((ninja) => {
     //console.log(data.Incident.toLowerCase());
     return {
@@ -28,14 +30,40 @@ export const getStaticProps = async (context) => {
     props: { data: data },
   };
 };
-const dataDetails = ({ data }) => {
+*/
+
+export const getStaticPaths = async () => {
+  return {
+    paths: [], //indicates that no page needs be created at build time
+    fallback: 'blocking', //indicates the type of fallback
+  };
+};
+
+export async function getStaticProps(context) {
+  const res = await fetch(
+    `http://localhost:3000/api/data/${context.params.dataDetails.trim()}`,
+  );
+  const data = await res.json();
+  return {
+    props: {
+      caseDetails: data.data,
+    },
+  };
+}
+
+const dataDetails = ({ caseDetails }) => {
   return (
     <div>
-      <h1>{data.Incident} </h1>
-      <p>{data.Account}</p>
-      <p>{data.Name}</p>
-      <p>{data.Adress}</p>
+      {caseDetails && (
+        <>
+          <h1>{caseDetails.Account}</h1>
+          <p>{caseDetails.Description}</p>
+          <p>{caseDetails.PhoneNumber}</p>
+          <p>{caseDetails.Serial_Number}</p>
+        </>
+      )}
     </div>
   );
 };
+
 export default dataDetails;

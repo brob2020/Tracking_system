@@ -1,5 +1,5 @@
-import InsertData from "../../../modele/insertData";
-import dbConnect from "../../../utils/dbConnect";
+import InsertData from '../../../modele/insertData';
+import dbConnect from '../../../utils/dbConnect';
 
 dbConnect();
 
@@ -11,17 +11,18 @@ export default async (req, res) => {
   } = req;
 
   switch (method) {
-    case "GET":
+    case 'GET':
       {
         try {
-          const insertData = await InsertData.findById(id);
+          console.log(id);
+          const insertData = await InsertData.findOne({ Incident: id });
           res.status(200).json({ success: true, data: insertData });
         } catch (err) {
           res.status(400).json({ success: false, error: err });
         }
       }
       break;
-    case "PUT":
+    case 'PUT':
       {
         try {
           const updatedData = await InsertData.findByIdAndUpdate(id, body, {
@@ -34,7 +35,7 @@ export default async (req, res) => {
         }
       }
       break;
-    case "DELETE":
+    case 'DELETE':
       {
         try {
           const deletedData = await InsertData.deleteOne({ _id: id });
@@ -48,7 +49,7 @@ export default async (req, res) => {
       }
       break;
     default:
-      res.status(405).json({ success: false, error: "Not allowed" });
+      res.status(405).json({ success: false, error: 'Not allowed' });
       break;
   }
 };
