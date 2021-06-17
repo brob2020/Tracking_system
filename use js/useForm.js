@@ -1,10 +1,11 @@
+import { number } from "joi";
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 const useForm = (callback, validate) => {
   const [values, setValues] = useState({
     Account: "",
-    Incident: "",
+    Incident: 0,
     Serial_Number: "",
     Name: "",
     Description: "",
@@ -31,6 +32,7 @@ const useForm = (callback, validate) => {
 
     // Handle errors
     setErrors(validate(values, setValues));
+
     setIsSubmitting(true);
   };
 

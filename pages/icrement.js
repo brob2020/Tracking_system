@@ -26,7 +26,7 @@ const icrement = ({ datas }) => {
             {datas.data
               .filter((data) => {
                 if (searchTerm == "") {
-                  console.log(data.Incident == undefined);
+                  
                   return data;
                 } else if (
                   data.Incident.toLowerCase().includes(
@@ -38,8 +38,8 @@ const icrement = ({ datas }) => {
               })
               .map((data) => (
                 <Link
-                  href={"/Modelisation/ " + data.Incident}
-                  key={data.Incident}
+                  href={"/Modelisation/ " + data._id}
+                  key={data._id}
                 >
                   <a>
                     <li className="card">

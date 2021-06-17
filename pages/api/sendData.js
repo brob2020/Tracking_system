@@ -29,6 +29,8 @@ export default async (req, res) => {
     User_Name,
     Type,
     Incident,
+    status,
+    Notification,
   } = req.body;
   const { method, body } = req;
   if (method === "GET") {
@@ -56,7 +58,7 @@ export default async (req, res) => {
     console.log(InsertData);*/
     const file = new InsertData(body);
     try {
-      console.log(body);
+      console.log(body.Incident);
       const newFile = await file.save();
       //console.log(file);
       res.status(200).json({ success: true, data: newFile });
@@ -65,7 +67,7 @@ export default async (req, res) => {
 
       //setup the transport for the email
 
-      const transporter = nodemailer.createTransport({
+      /*const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
         secure: true,
@@ -91,11 +93,21 @@ export default async (req, res) => {
        <p><strong> Request : </strong> ${Description} </p><br>
        <p><strong> Mail : </strong> ${User_Name} </p><br>
        `,
-      });
-      console.log("message send ", emailRes.messageId);
+      });*/
+      console.log("message send ");
     } catch (e) {
       console.log(e);
       res.status(400).json({ success: false });
+    }
+  } else if (method === "PUT") {
+    try {
+      const updatedData = await InsertData.findByIdAndUpdate(id, body, {
+        new: true,
+        runValidators: true,
+      });
+      res.status(200).json({ success: true, data: updatedData });
+    } catch (err) {
+      res.status(400).json({ success: false, error: err });
     }
   }
 };

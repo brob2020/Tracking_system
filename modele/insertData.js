@@ -1,11 +1,17 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const dataSchema = new mongoose.Schema({
   Account: {
     type: String,
   },
-  Incident: {
+  Notification: {
     type: String,
+  },
+  Status: {
+    type: String,
+  },
+  Incident: {
+    type: Number,
   },
   Type: {
     type: String,
@@ -37,4 +43,4 @@ const dataSchema = new mongoose.Schema({
 });
 
 module.exports =
-  mongoose.models.insertData || mongoose.model('insertData', dataSchema);
+  mongoose.models.insertData || mongoose.model("insertData", dataSchema);

@@ -1,6 +1,17 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import Insert from "./insert"
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
+import {
+  Grid,
+  TextField,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControl,
+  Button,
+  Checkbox,
+  Icon,
+  Typography,
+} from "@material-ui/core";
 
 export default function Home() {
   return (
@@ -9,10 +20,9 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-       <Insert/>
+      <Button> test </Button>
 
-        {/* addind grid system */ }
-      
+      {/* addind grid system */}
     </div>
-  )
+  );
 }

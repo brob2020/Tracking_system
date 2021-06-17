@@ -15,7 +15,7 @@ export default async (req, res) => {
       {
         try {
           console.log(id);
-          const insertData = await InsertData.findOne({ Incident: id });
+          const insertData = await InsertData.findById({ _id: id });
           res.status(200).json({ success: true, data: insertData });
         } catch (err) {
           res.status(400).json({ success: false, error: err });

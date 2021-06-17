@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Router from "next/router";
+import Link from "next/link";
 import {
   Grid,
   TextField,
@@ -7,6 +9,7 @@ import {
   MenuItem,
   FormControl,
   Button,
+  Checkbox,
   Icon,
   Typography,
 } from "@material-ui/core";
@@ -17,25 +20,29 @@ import { toast } from "react-toastify";
 import useForm from "../use js/useForm";
 import validate from "../use js/validate";
 
-import { Send, Delete } from "@material-ui/icons";
+import { Send, Delete, UpdateOutlined } from "@material-ui/icons";
 import styles from "../styles/Home.module.css";
 
 const Insert = () => {
   const [good, setGood] = useState(true);
+  const [notify, setNotify] = useState(false);
+  const [dispIn, setDispIn] = useState(false);
   const [account, setAccount] = useState("");
   const [type, setType] = useState("");
+  const [status, setStatus] = useState("");
   const { handleChange, handleSubmit, values, errors } = useForm(
     submit,
     validate
   );
-  const [id, setId] = useState(26020101)
-  const [incident, setIncident] = useState("TRCK" + String(id))
 
-  const IncreID = () => {
-    setId(id + 1)
-    console.log(String(id).length)
-    setIncident("TRCK" + String(id));
-  }
+  //const id = String(lastId).split("TRCK");
+  //console.log(String(lastId).split("TRCK"));
+  const [id, setId] = useState("");
+
+  const ClearForm = (e) => {
+    console.log("clear");
+    Router.reload(window.location.pathname);
+  };
   const handleAccount = (event) => {
     setAccount(event.target.value);
     console.log(event.target.value);
@@ -44,6 +51,14 @@ const Insert = () => {
     setType(event.target.value);
     console.log(event.target.value);
   };
+  const handleStatus = (event) => {
+    setStatus(event.target.value);
+    console.log(event.target.value);
+  };
+  const HandleNotify = () => {
+    setNotify(!notify);
+    console.log(notify);
+  };
 
   const HandleSubmit = () => {
     console.log("clique ");
@@ -51,13 +66,13 @@ const Insert = () => {
   // send data to database
   async function submit(e) {
     e.preventDefault();
-    IncreID();
+    //IncreID();
+    UpdateOutlined();
     values.Account = account;
     values.Type = type;
-    values.Incident = incident;
-    console.log(values.Account);
-    console.log(values.Type);
-    console.log("test");
+
+    values.Status = status;
+    values.Notification = notify;
     var config = {
       method: "post",
       url: "api/sendData",
@@ -71,6 +86,7 @@ const Insert = () => {
 
       if (response.status == 200) {
         setGood(true);
+        setDispIn(true);
 
         toast.success("fellicition");
         console.log(JSON.stringify(response.data));
@@ -79,37 +95,46 @@ const Insert = () => {
       console.log(error);
     }
   }
-  /*useEffect(() => {
+
+  function UpdateOutlined() {
     var config = {
-      method: 'post',
-      url: 'api/sendData',
+      method: "get",
+      url: "api/sendData",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       data: values,
     };
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        const datas = response.data;
+        const lastId = datas.data[datas.data.length - 1].Incident;
+        console.log(lastId);
+        values.Incident = lastId + 1;
+        //const [incident, setIncident] = useState(lastId + 1);
       })
       .catch(function (error) {
         console.log(error);
       });
-  });*/
+  }
 
   return (
     <div className={styles.container}>
       <div>
         {" "}
         <h2> Data entry</h2>
-        <TextField
-          name="Incident #"
-          variant="outlined"
-          disabled={true}
-          value={incident}
-          fullWidth={true}
-        />
+        {dispIn ? (
+          <TextField
+            name="Incident #"
+            variant="outlined"
+            disabled={true}
+            value={`TRK${incident}`}
+            fullWidth={true}
+          />
+        ) : (
+          ""
+        )}
       </div>
       {!good ? <Loader /> : " "}
       <form onSubmit={submit} noValidate>
@@ -127,6 +152,7 @@ const Insert = () => {
                 value={account}
                 onChange={handleAccount}
                 required={true}
+                disabled={dispIn}
               >
                 <MenuItem value="">
                   <em>None</em>
@@ -147,6 +173,7 @@ const Insert = () => {
                 label="Type"
                 value={type}
                 onChange={handleType}
+                disabled={dispIn}
               >
                 <MenuItem value="">
                   <em>None</em>
@@ -155,8 +182,34 @@ const Insert = () => {
                 <MenuItem value={"Supplies"}>Supplies</MenuItem>
               </Select>
             </FormControl>
+            <Grid item xs={12} sm={6}>
+              <FormControl variant="outlined" fullWidth={true}>
+                <InputLabel id="Type">Status </InputLabel>
+                <Select
+                  labelId="status"
+                  required={true}
+                  label="status"
+                  value={status}
+                  defaultValue="open"
+                  onChange={handleStatus}
+                  disabled={dispIn}
+                >
+                  <MenuItem value=""></MenuItem>
+                  <MenuItem value={"Open"}>Open</MenuItem>
+                  <MenuItem value={"Picked"}>Picked</MenuItem>
+                  <MenuItem value={"Close"}>Close</MenuItem>
+                  <MenuItem value={"Escalate"}>Escalate</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
           </Grid>
           <Grid item xs={4}>
+            <Checkbox
+              color="primary"
+              onChange={HandleNotify}
+              disabled={dispIn}
+            />
+            {notify ? <div> just click</div> : " "}
             <TextField
               name="Serial_Number"
               required={true}
@@ -166,6 +219,7 @@ const Insert = () => {
               label="Serial Number "
               variant="outlined"
               fullWidth={true}
+              disabled={dispIn}
             />
           </Grid>
           <Grid item xs={8}>
@@ -178,6 +232,7 @@ const Insert = () => {
               error={errors.Name && true}
               variant="outlined"
               fullWidth={true}
+              disabled={dispIn}
             />
           </Grid>
           <Grid item xs={9}>
@@ -187,6 +242,7 @@ const Insert = () => {
               name="Address"
               variant="outlined"
               fullWidth={true}
+              disabled={dispIn}
             />
           </Grid>
           <Grid item xs={3}>
@@ -203,6 +259,7 @@ const Insert = () => {
               required={true}
               helperText={errors.PhoneNumber}
               error={errors.PhoneNumber && true}
+              disabled={dispIn}
             />
           </Grid>
           <Grid item xs={8}>
@@ -217,6 +274,7 @@ const Insert = () => {
               rows={4}
               variant="outlined"
               fullWidth={true}
+              disabled={dispIn}
             />
           </Grid>
           <Grid item xs={9}>
@@ -226,6 +284,7 @@ const Insert = () => {
               label="User Name"
               variant="outlined"
               fullWidth={true}
+              disabled={dispIn}
             />
           </Grid>
           <Grid item xs={3}></Grid>
@@ -240,6 +299,7 @@ const Insert = () => {
               onClick={() => {
                 setGood(false);
               }}
+              disabled={dispIn}
             >
               Submit
             </Button>
@@ -249,8 +309,10 @@ const Insert = () => {
               variant="contained"
               color="secondary"
               startIcon={<Delete />}
+              onClick={ClearForm}
+              type="reset"
             >
-              ClearForm
+              New Entry
             </Button>
           </Grid>
         </Grid>
@@ -259,3 +321,20 @@ const Insert = () => {
   );
 };
 export default Insert;
+/*
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  const res = await fetch("http://localhost:3000/api/sendData");
+  const datas = await res.json();
+  const lastId = datas.data[datas.data.length - 1].Incident;
+  console.log(lastId);
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      lastId,
+    },
+  };
+}*/
