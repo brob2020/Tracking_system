@@ -40,6 +40,10 @@ const dataSchema = new mongoose.Schema({
     type: String,
     max: 1024,
   },
+  XSM_Incident: {
+    type: String,
+    max: 1024,
+  },
 });
 
 module.exports =

@@ -204,12 +204,6 @@ const Insert = () => {
             </Grid>
           </Grid>
           <Grid item xs={4}>
-            <Checkbox
-              color="primary"
-              onChange={HandleNotify}
-              disabled={dispIn}
-            />
-            {notify ? <div> just click</div> : " "}
             <TextField
               name="Serial_Number"
               required={true}
@@ -288,7 +282,7 @@ const Insert = () => {
             />
           </Grid>
           <Grid item xs={3}></Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <Button
               variant="contained"
               type="submit"
@@ -304,7 +298,17 @@ const Insert = () => {
               Submit
             </Button>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={8}>
+            <Checkbox
+              color="primary"
+              onChange={HandleNotify}
+              disabled={dispIn}
+            />
+            {notify
+              ? "you will recive Notification for this"
+              : " Notify me of any update"}
+          </Grid>
+          <Grid item xs={3}>
             <Button
               variant="contained"
               color="secondary"
