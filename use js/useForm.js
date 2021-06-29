@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 const useForm = (callback, validate) => {
   const [values, setValues] = useState({
     Account: "",
-    Incident: 0,
+    Incident: "",
     Serial_Number: "",
     Name: "",
     Description: "",
@@ -13,6 +13,9 @@ const useForm = (callback, validate) => {
     PhoneNumber: "",
     User_Name: "",
     Type: "",
+    Staus: "",
+    XSM_Incident: "",
+    Notification: "",
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);

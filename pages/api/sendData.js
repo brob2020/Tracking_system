@@ -19,7 +19,7 @@ function sendValidation(data) {
 }
 
 export default async (req, res) => {
-  const {
+  /*const {
     Account,
     Serial_Number,
     Name,
@@ -31,7 +31,7 @@ export default async (req, res) => {
     Incident,
     status,
     Notification,
-  } = req.body;
+  } = req.body;*/
   const { method, body } = req;
   if (method === "GET") {
     try {

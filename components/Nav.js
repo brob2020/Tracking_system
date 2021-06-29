@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import navStyles from '../styles/Nav.module.css';
+import Link from "next/link";
+import Image from "next/image";
+import navStyles from "../styles/Nav.module.css";
 
 const Nav = () => {
   return (
@@ -9,7 +9,7 @@ const Nav = () => {
         type="checkbox"
         className={navStyles.navcheck}
         onChange={(e) => {
-          console.log('CHanged');
+          console.log("CHanged");
         }}
       />
       <div className={navStyles.navheader}>
@@ -24,18 +24,14 @@ const Nav = () => {
       </div>
 
       <div className={navStyles.navlinks}>
-        <a href="/">Home</a>
+        <a href="/insert">Insert</a>
 
-        <Link href="/becomeMember" target="_blank">
-          <a> devenir membre </a>
+        <Link href="/icrement">
+          <a> Data </a>
         </Link>
 
-        <a href="/compta" target="_blank">
-          Comptabilite
-        </a>
-        <a href="https://codepen.io/jo_Geek/" target="_blank">
-          other Links
-        </a>
+        <a href="/getdatata">Table</a>
+        <a href="/updateData">update</a>
         <a href="https://jsfiddle.net/user/jo_Geek/" target="_blank">
           User
         </a>

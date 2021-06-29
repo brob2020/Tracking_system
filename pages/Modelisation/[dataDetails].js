@@ -37,11 +37,15 @@ export async function getStaticProps(context) {
 }
 
 const dataDetails = ({ caseDetails }) => {
+  const { edit, setEdit } = useState(true);
   const { handleChange, handleSubmit, values, errors } = useForm(
     submit,
     validate
   );
 
+  const Modify = () => {
+    setEdit(true);
+  };
   async function submit(e) {
     e.preventDefault();
     var config = {
@@ -73,7 +77,7 @@ const dataDetails = ({ caseDetails }) => {
           disabled={true}
           value={caseDetails.Incident}
           fullWidth={true}
-          disabled="true"
+          disabled={true}
         />
       </div>
       <div className={styles.container}>
@@ -88,7 +92,7 @@ const dataDetails = ({ caseDetails }) => {
                     variant="outlined"
                     value={caseDetails.Serial_Number}
                     fullWidth={true}
-                    disabled="true"
+                    disabled={true}
                   />
                 </Grid>
 
@@ -99,7 +103,7 @@ const dataDetails = ({ caseDetails }) => {
                     variant="outlined"
                     value={caseDetails.Account}
                     fullWidth={true}
-                    disabled="true"
+                    disabled={true}
                   />
                 </Grid>
 
@@ -109,7 +113,7 @@ const dataDetails = ({ caseDetails }) => {
                   variant="outlined"
                   value={caseDetails.Type}
                   fullWidth={true}
-                  disabled="true"
+                  disabled={true}
                 />
 
                 <Grid item xs={6}>
@@ -119,7 +123,7 @@ const dataDetails = ({ caseDetails }) => {
                     variant="outlined"
                     value={caseDetails.Name}
                     fullWidth={true}
-                    disabled="true"
+                    disabled={true}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -129,7 +133,7 @@ const dataDetails = ({ caseDetails }) => {
                     variant="outlined"
                     value={caseDetails.Serial_Number}
                     fullWidth={true}
-                    disabled="true"
+                    disabled={true}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -139,7 +143,7 @@ const dataDetails = ({ caseDetails }) => {
                     variant="outlined"
                     value={caseDetails.PhoneNumber}
                     fullWidth={true}
-                    disabled="true"
+                    disabled={true}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -149,12 +153,12 @@ const dataDetails = ({ caseDetails }) => {
                     variant="outlined"
                     value={caseDetails.Serial_Number}
                     fullWidth={true}
-                    disabled="true"
+                    disabled={true}
                   />
                 </Grid>
                 <Grid item xs={6}>
                   <FormControl variant="outlined" fullWidth={true}>
-                    <InputLabel id="Type">Status </InputLabel>
+                    <InputLabel id="Type">Status</InputLabel>
                     <Select
                       labelId="status"
                       required={true}
@@ -178,7 +182,7 @@ const dataDetails = ({ caseDetails }) => {
                     label="XSM_Incident Number "
                     variant="outlined"
                     value={caseDetails.XSM_Incident}
-                    fullWidth={true}
+                    fullWidth={edit}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -191,7 +195,7 @@ const dataDetails = ({ caseDetails }) => {
                     variant="outlined"
                     fullWidth={true}
                     value={caseDetails.Description}
-                    disabled="true"
+                    disabled={edit}
                   />
                 </Grid>
               </Grid>
@@ -203,10 +207,7 @@ const dataDetails = ({ caseDetails }) => {
                   size="large"
                   className={styles.button}
                   endIcon={<UpdateOutlined />}
-                  /*onClick={() => {
-                setGood(false);
-              }}
-              disabled={dispIn}*/
+                  onClick={submit}
                 >
                   Submit
                 </Button>
