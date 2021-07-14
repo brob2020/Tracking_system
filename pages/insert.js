@@ -10,6 +10,7 @@ import {
   FormControl,
   Button,
   Checkbox,
+  FormHelperText,
   Icon,
   Typography,
 } from "@material-ui/core";
@@ -67,7 +68,7 @@ const Insert = () => {
   async function submit(e) {
     e.preventDefault();
     //IncreID();
-    UpdateOutlined();
+    //UpdateOutlined();
     values.Account = account;
     values.Type = type;
 
@@ -96,7 +97,7 @@ const Insert = () => {
     }
   }
 
-  function UpdateOutlined() {
+  /*function UpdateOutlined() {
     var config = {
       method: "get",
       url: "api/sendData",
@@ -112,12 +113,12 @@ const Insert = () => {
         const lastId = datas.data[datas.data.length - 1].Incident;
         console.log(lastId);
         values.Incident = lastId + 1;
-        //const [incident, setIncident] = useState(lastId + 1);
+        const [incident, setIncident] = useState(lastId + 1);
       })
       .catch(function (error) {
         console.log(error);
       });
-  }
+  }*/
 
   return (
     <div className={styles.container}>
@@ -129,15 +130,15 @@ const Insert = () => {
             name="Incident #"
             variant="outlined"
             disabled={true}
-            value={`TRK${incident}`}
+            value={`TRK`}
             fullWidth={true}
           />
         ) : (
-          ""
+          " "
         )}
       </div>
       {!good ? <Loader /> : " "}
-      <form onSubmit={submit} noValidate>
+      <form onSubmit={handleSubmit} noValidate>
         <Grid container spacing={3} className={styles.grid}>
           <Grid item xs={12} sm={6}>
             <FormControl variant="outlined" fullWidth={true}>
@@ -145,6 +146,7 @@ const Insert = () => {
                 Account
               </InputLabel>
               <Select
+                error={errors.Account && true}
                 name="Account "
                 required={true}
                 labelId="Account"
@@ -162,12 +164,19 @@ const Insert = () => {
                 <MenuItem value={"XOG"}>XOG</MenuItem>
                 <MenuItem value={"EPS"}>EPS</MenuItem>
               </Select>
+              {errors.Account ? (
+                <FormHelperText error={true}>{errors.Account}</FormHelperText>
+              ) : (
+                " "
+              )}
             </FormControl>
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormControl variant="outlined" fullWidth={true}>
               <InputLabel id="Type">Type </InputLabel>
+
               <Select
+                error={errors.Type && true}
                 labelId="Type"
                 required={true}
                 label="Type"
@@ -181,28 +190,14 @@ const Insert = () => {
                 <MenuItem value={"Break/fix"}>Break/fix</MenuItem>
                 <MenuItem value={"Supplies"}>Supplies</MenuItem>
               </Select>
+              {errors.Type ? (
+                <FormHelperText error={true}>{errors.Type}</FormHelperText>
+              ) : (
+                " "
+              )}
             </FormControl>
-            <Grid item xs={12} sm={6}>
-              <FormControl variant="outlined" fullWidth={true}>
-                <InputLabel id="Type">Status </InputLabel>
-                <Select
-                  labelId="status"
-                  required={true}
-                  label="status"
-                  value={status}
-                  defaultValue="open"
-                  onChange={handleStatus}
-                  disabled={dispIn}
-                >
-                  <MenuItem value=""></MenuItem>
-                  <MenuItem value={"Open"}>Open</MenuItem>
-                  <MenuItem value={"Picked"}>Picked</MenuItem>
-                  <MenuItem value={"Close"}>Close</MenuItem>
-                  <MenuItem value={"Escalate"}>Escalate</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
           </Grid>
+
           <Grid item xs={4}>
             <TextField
               name="Serial_Number"
@@ -279,7 +274,35 @@ const Insert = () => {
               variant="outlined"
               fullWidth={true}
               disabled={dispIn}
+              helperText={errors.User_Name}
+              error={errors.User_Name && true}
             />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormControl variant="outlined" fullWidth={true}>
+              <InputLabel id="Type">Status </InputLabel>
+              <Select
+                error={errors.Status && true}
+                labelId="status"
+                required={true}
+                label="status"
+                value={status}
+                defaultValue="open"
+                onChange={handleStatus}
+                disabled={dispIn}
+              >
+                <MenuItem value="Open"></MenuItem>
+                <MenuItem value={"Open"}>Open</MenuItem>
+                <MenuItem value={"Picked"}>Picked</MenuItem>
+                <MenuItem value={"Close"}>Close</MenuItem>
+                <MenuItem value={"Escalate"}>Escalate</MenuItem>
+              </Select>
+              {errors.Status ? (
+                <FormHelperText error={true}>{errors.Status}</FormHelperText>
+              ) : (
+                " "
+              )}
+            </FormControl>
           </Grid>
           <Grid item xs={3}></Grid>
           <Grid item xs={2}>
@@ -290,9 +313,9 @@ const Insert = () => {
               size="large"
               className={styles.button}
               endIcon={<Send />}
-              onClick={() => {
+              /* onClick={() => {
                 setGood(false);
-              }}
+              }}*/
               disabled={dispIn}
             >
               Submit

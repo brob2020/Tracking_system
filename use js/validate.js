@@ -28,6 +28,9 @@ export default function validate(values, setValues) {
   if (!values.Account) {
     errors.Account = "The Account is required ";
   }
+  if (!values.Status) {
+    errors.Status = "The Status  is required ";
+  }
 
   // Email
   /* const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

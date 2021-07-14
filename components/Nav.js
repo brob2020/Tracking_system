@@ -30,8 +30,8 @@ const Nav = () => {
           <a> Data </a>
         </Link>
 
-        <a href="/getdatata">Table</a>
-        <a href="/updateData">update</a>
+        <a href="/getDatata">Table</a>
+        <a href="/getData">update</a>
         <a href="https://jsfiddle.net/user/jo_Geek/" target="_blank">
           User
         </a>

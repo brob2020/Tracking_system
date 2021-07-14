@@ -13,7 +13,7 @@ const useForm = (callback, validate) => {
     PhoneNumber: "",
     User_Name: "",
     Type: "",
-    Staus: "",
+    Status: "",
     XSM_Incident: "",
     Notification: "",
   });
