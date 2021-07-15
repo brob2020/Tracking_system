@@ -46,15 +46,15 @@ const Insert = () => {
   };
   const handleAccount = (event) => {
     setAccount(event.target.value);
-    console.log(event.target.value);
+    values.Account = event.target.value;
   };
   const handleType = (event) => {
     setType(event.target.value);
-    console.log(event.target.value);
+    values.Type = event.target.value;
   };
   const handleStatus = (event) => {
     setStatus(event.target.value);
-    console.log(event.target.value);
+    values.Status = event.target.value;
   };
   const HandleNotify = () => {
     setNotify(!notify);
@@ -66,7 +66,6 @@ const Insert = () => {
   };
   // send data to database
   async function submit(e) {
-    e.preventDefault();
     //IncreID();
     //UpdateOutlined();
     values.Account = account;
