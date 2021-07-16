@@ -29,6 +29,7 @@ export async function getStaticProps(context) {
     `http://localhost:3000/api/data/${context.params.dataDetails.trim()}`
   );
   const data = await res.json();
+  console.log(data);
   return {
     props: {
       caseDetails: data.data,
@@ -42,9 +43,16 @@ const dataDetails = ({ caseDetails }) => {
     submit,
     validate
   );
+  const [status, setStatus] = useState("");
 
   const Modify = () => {
     setEdit(true);
+  };
+  const handleStatus = (event) => {
+    setStatus(event.target.value);
+    console.log(status);
+    console.log(caseDetails.Status);
+    caseDetails.Status = event.target.value;
   };
 
   function submit(e) {
@@ -55,7 +63,7 @@ const dataDetails = ({ caseDetails }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      data: values,
+      data: caseDetails,
     };
 
     axios(config)
@@ -159,17 +167,23 @@ const dataDetails = ({ caseDetails }) => {
                 </Grid>
                 <Grid item xs={6}>
                   <FormControl variant="outlined" fullWidth={true}>
-                    <InputLabel id="Type">Status</InputLabel>
+                    <InputLabel id="Status">Status</InputLabel>
                     <Select
-                      labelId="status"
+                      //labelId="status"
                       required={true}
                       label="status"
-                      value={caseDetails.Status}
+                      onChange={handleStatus}
+                      value={status}
+                      displayEmpty
+                      placeholder="noneP"
 
                       //onChange={handleStatus}
                       //disabled={dispIn}
                     >
-                      <MenuItem value=""></MenuItem>
+                      <MenuItem value="" disabled>
+                        {" "}
+                        {caseDetails.Status}
+                      </MenuItem>
 
                       <MenuItem value={"Picked"}>Picked</MenuItem>
                       <MenuItem value={"Close"}>Close</MenuItem>
@@ -196,6 +210,19 @@ const dataDetails = ({ caseDetails }) => {
                     variant="outlined"
                     fullWidth={true}
                     value={caseDetails.Description}
+                    disabled={edit}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    id="Description"
+                    name="Description"
+                    label="Description"
+                    multiline
+                    rows={4}
+                    variant="outlined"
+                    fullWidth={true}
+                    value={new comment()}
                     disabled={edit}
                   />
                 </Grid>

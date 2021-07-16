@@ -38,7 +38,8 @@ const Insert = (lastId) => {
 
   //const id = String(lastId).split("TRCK");
   //console.log(String(lastId).split("TRCK"));
-  const [id, setId] = useState("");
+  //const [id, setId] = useState("");
+  let id = lastId.Incident;
 
   const ClearForm = (e) => {
     console.log("clear");
@@ -71,7 +72,8 @@ const Insert = (lastId) => {
     //UpdateOutlined();
     values.Account = account;
     values.Type = type;
-    setId(142587 + 1);
+    console.log(lastId);
+
     values.Status = status;
     values.Notification = notify;
     var config = {
@@ -130,7 +132,7 @@ const Insert = (lastId) => {
             name="Incident #"
             variant="outlined"
             disabled={true}
-            value={`TRK ${id}`}
+            value={lastId.lastId + 1}
             fullWidth={true}
           />
         ) : (
@@ -356,6 +358,7 @@ export async function getStaticProps() {
   const datas = await res.json();
   const lastId = datas.data[datas.data.length - 1].Incident;
   console.log(lastId);
+  console.log(datas.data[datas.data.length - 1].Incident);
 
   //By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time

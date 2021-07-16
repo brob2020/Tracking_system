@@ -28,9 +28,9 @@ const icrement = ({ datas }) => {
                 if (searchTerm == "") {
                   return data;
                 } else if (
-                  data.Incident.toLowerCase().includes(
-                    searchTerm.toLocaleLowerCase()
-                  )
+                  data.Incident.toString()
+                    .toLowerCase()
+                    .includes(searchTerm.toLocaleLowerCase())
                 ) {
                   return data;
                 }
@@ -61,7 +61,7 @@ export async function getStaticProps() {
   // You can use any data fetching library
   const res = await fetch("http://localhost:3000/api/sendData");
   const datas = await res.json();
-  console.log(datas.data[1]);
+  //console.log(datas.data[1]);
 
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time

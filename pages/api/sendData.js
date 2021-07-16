@@ -71,7 +71,7 @@ export default async (req, res) => {
         nextSeq = ++maxCountObj.Seq;
       }
 
-      console.log(nextSeq);
+      //console.log(nextSeq);
 
       file.Incident = nextSeq;
       const newFile = await file.save();

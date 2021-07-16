@@ -1,4 +1,4 @@
-import { InsertData } from "../../../modele/insertData";
+import InsertData from "../../../modele/insertData";
 import dbConnect from "../../../utils/dbConnect";
 
 dbConnect();
@@ -16,8 +16,13 @@ export default async (req, res) => {
         try {
           console.log(id);
           const insertData = await InsertData.findById({ _id: id });
+          // const files = await InsertData.find({});
           res.status(200).json({ success: true, data: insertData });
+          //res.status(200).json({ success: true, data: files });
         } catch (err) {
+          console.log("we tried ");
+          console.log(err);
+
           res.status(400).json({ success: false, error: err });
         }
       }
