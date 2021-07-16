@@ -11,7 +11,7 @@ const dataSchema = new mongoose.Schema({
     type: String,
   },
   Incident: {
-    type: String,
+    type: Number,
   },
   Type: {
     type: String,

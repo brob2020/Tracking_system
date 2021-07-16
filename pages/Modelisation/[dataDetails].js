@@ -46,11 +46,12 @@ const dataDetails = ({ caseDetails }) => {
   const Modify = () => {
     setEdit(true);
   };
-  async function submit(e) {
+
+  function submit(e) {
     e.preventDefault();
     var config = {
       method: "PUT",
-      url: `api/data/${caseDetails}`,
+      url: `/api/data/${caseDetails._id}`,
       headers: {
         "Content-Type": "application/json",
       },

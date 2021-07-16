@@ -15,6 +15,7 @@
     "framer-motion": "^4.1.17",
     "joi": "^17.4.0",
     "mongoose": "^5.12.3",
+    "nanoid": "^3.1.23",
     "next": "10.0.8",
     "nodemailer": "^6.6.1",
     "nprogress": "^0.2.0",

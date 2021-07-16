@@ -1,4 +1,5 @@
 import InsertData from "../../modele/insertData";
+import Counter from "../../modele/counter";
 import dbConnect from "../../utils/dbConnect";
 import Joi from "joi";
 import nodemailer from "nodemailer";
@@ -19,6 +20,8 @@ function sendValidation(data) {
 }
 
 export default async (req, res) => {
+  // Initialize short IDs generator
+
   /*const {
     Account,
     Serial_Number,
@@ -56,10 +59,25 @@ export default async (req, res) => {
         .json({ success: false, error: error.details[0].message });
     const file = new InsertData(body);
     console.log(InsertData);*/
+
     const file = new InsertData(body);
+
+    //console.log(file);
     try {
-      console.log(body.Incident);
+      const maxCountObj = await Counter.findOne().sort({ Seq: "desc" }).exec();
+
+      let nextSeq = 26000001;
+      if (maxCountObj) {
+        nextSeq = ++maxCountObj.Seq;
+      }
+
+      console.log(nextSeq);
+
+      file.Incident = nextSeq;
       const newFile = await file.save();
+
+      const counter = new Counter({ Seq: nextSeq });
+      await counter.save();
       //console.log(file);
       res.status(200).json({ success: true, data: newFile });
 

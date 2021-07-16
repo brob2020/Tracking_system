@@ -24,7 +24,7 @@ import validate from "../use js/validate";
 import { Send, Delete, UpdateOutlined } from "@material-ui/icons";
 import styles from "../styles/Home.module.css";
 
-const Insert = () => {
+const Insert = (lastId) => {
   const [good, setGood] = useState(true);
   const [notify, setNotify] = useState(false);
   const [dispIn, setDispIn] = useState(false);
@@ -66,11 +66,12 @@ const Insert = () => {
   };
   // send data to database
   async function submit(e) {
+    e.preventDefault();
     //IncreID();
     //UpdateOutlined();
     values.Account = account;
     values.Type = type;
-
+    setId(142587 + 1);
     values.Status = status;
     values.Notification = notify;
     var config = {
@@ -129,7 +130,7 @@ const Insert = () => {
             name="Incident #"
             variant="outlined"
             disabled={true}
-            value={`TRK`}
+            value={`TRK ${id}`}
             fullWidth={true}
           />
         ) : (
@@ -137,7 +138,7 @@ const Insert = () => {
         )}
       </div>
       {!good ? <Loader /> : " "}
-      <form onSubmit={handleSubmit} noValidate>
+      <form onSubmit={submit} noValidate>
         <Grid container spacing={3} className={styles.grid}>
           <Grid item xs={12} sm={6}>
             <FormControl variant="outlined" fullWidth={true}>
@@ -347,7 +348,7 @@ const Insert = () => {
   );
 };
 export default Insert;
-/*
+
 export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
@@ -356,11 +357,11 @@ export async function getStaticProps() {
   const lastId = datas.data[datas.data.length - 1].Incident;
   console.log(lastId);
 
-  // By returning { props: { posts } }, the Blog component
+  //By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return {
     props: {
       lastId,
     },
   };
-}*/
+}
