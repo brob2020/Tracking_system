@@ -24,7 +24,7 @@ import validate from "../use js/validate";
 import { Send, Delete, UpdateOutlined } from "@material-ui/icons";
 import styles from "../styles/Home.module.css";
 
-const Insert = (lastId) => {
+const Insert = () => {
   const [good, setGood] = useState(true);
   const [notify, setNotify] = useState(false);
   const [dispIn, setDispIn] = useState(false);
@@ -39,7 +39,7 @@ const Insert = (lastId) => {
   //const id = String(lastId).split("TRCK");
   //console.log(String(lastId).split("TRCK"));
   //const [id, setId] = useState("");
-  let id = lastId.Incident;
+  //let id = lastId.Incident;
 
   const ClearForm = (e) => {
     console.log("clear");
@@ -72,7 +72,7 @@ const Insert = (lastId) => {
     //UpdateOutlined();
     values.Account = account;
     values.Type = type;
-    console.log(lastId);
+    //console.log(lastId);
 
     values.Status = status;
     values.Notification = notify;
@@ -132,7 +132,7 @@ const Insert = (lastId) => {
             name="Incident #"
             variant="outlined"
             disabled={true}
-            value={Number(lastId.lastId) + 1}
+            //value={Number(lastId.lastId) + 1}
             fullWidth={true}
           />
         ) : (
@@ -350,7 +350,7 @@ const Insert = (lastId) => {
   );
 };
 export default Insert;
-
+/*
 export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
@@ -368,3 +368,4 @@ export async function getStaticProps() {
     },
   };
 }
+*/

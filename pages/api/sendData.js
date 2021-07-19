@@ -8,6 +8,10 @@ dbConnect();
 function sendValidation(data) {
   const schema = Joi.object({
     Account: Joi.string().required(),
+    Incident: Joi.string().allow(''),
+    XSM_Incident: Joi.string().allow(''),
+    Status: Joi.string().required(),
+    Notification: Joi.boolean().required(),
     Type: Joi.string().required(),
     Name: Joi.string().required(),
     User_Name: Joi.string().required(),
@@ -22,7 +26,7 @@ function sendValidation(data) {
 export default async (req, res) => {
   // Initialize short IDs generator
 
-  /*const {
+  const {
     Account,
     Serial_Number,
     Name,
@@ -34,7 +38,7 @@ export default async (req, res) => {
     Incident,
     status,
     Notification,
-  } = req.body;*/
+  } = req.body;
   const { method, body } = req;
   if (method === "GET") {
     try {
@@ -45,22 +49,22 @@ export default async (req, res) => {
     }
   } else if (method === "POST") {
     //joi validation
-    console.log("joi start ");
-    console.log("body is here ");
+    //console.log("joi start ");
+   // console.log("body is here ");
 
-    //const { error } = sendValidation(body);
+    const { error } = sendValidation(body);
 
-    //console.log(error);
+    console.log(error);
 
     //console.log(body);
-    /* if (error)
+     if (error)
       return res
         .status(400)
         .json({ success: false, error: error.details[0].message });
     const file = new InsertData(body);
-    console.log(InsertData);*/
+    //console.log(InsertData);
 
-    const file = new InsertData(body);
+    //const file = new InsertData(body);
 
     //console.log(file);
     try {
@@ -85,7 +89,7 @@ export default async (req, res) => {
 
       //setup the transport for the email
 
-      /*const transporter = nodemailer.createTransport({
+      const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
         secure: true,
@@ -111,7 +115,7 @@ export default async (req, res) => {
        <p><strong> Request : </strong> ${Description} </p><br>
        <p><strong> Mail : </strong> ${User_Name} </p><br>
        `,
-      });*/
+      });
       console.log("message send ");
     } catch (e) {
       console.log(e);
