@@ -25,7 +25,7 @@ const icrement = ({ datas }) => {
 
   return (
     <>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} className="sticky">
         <Grid item xs={6}>
           <TextField
             id={`Search by ${filtValue}`}
@@ -58,7 +58,7 @@ const icrement = ({ datas }) => {
         </Grid>
       </Grid>
 
-      <div className="card">
+      <div className="card , display">
         <div>
           <ul className="grid">
             <div>

@@ -45,7 +45,7 @@ const dataDetails = ({ caseDetails }) => {
     validate
   );*/
   const [status, setStatus] = useState(`${caseDetails.Status}`);
- const [xsm, setXsm] = useState(`${caseDetails.XSM_Incident}`);
+  const [xsm, setXsm] = useState(`${caseDetails.XSM_Incident}`);
 
   const Modify = () => {
     setEdit(true);
@@ -131,7 +131,7 @@ const dataDetails = ({ caseDetails }) => {
                   label="Call Type"
                   variant="outlined"
                   value={caseDetails.Type}
-                  fullWidt
+                  fullWidth
                   disabled
                 />
 

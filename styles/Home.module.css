@@ -78,6 +78,7 @@
   background: #e2e9f0;
   border: 2px solid;
 }
+
 .button {
   margin: 1px;
   padding: 7%;
@@ -87,7 +88,6 @@
   text-align: "center";
   color: blue;
 }
-
 
 @media (max-width: 600px) {
   .grid {
