@@ -8,8 +8,8 @@ dbConnect();
 function sendValidation(data) {
   const schema = Joi.object({
     Account: Joi.string().required(),
-    Incident: Joi.string().allow(''),
-    XSM_Incident: Joi.string().allow(''),
+    Incident: Joi.string().allow(""),
+    XSM_Incident: Joi.string().allow(""),
     Status: Joi.string().required(),
     Notification: Joi.boolean().required(),
     Type: Joi.string().required(),
@@ -50,14 +50,14 @@ export default async (req, res) => {
   } else if (method === "POST") {
     //joi validation
     //console.log("joi start ");
-   // console.log("body is here ");
+    // console.log("body is here ");
 
     const { error } = sendValidation(body);
 
     console.log(error);
 
     //console.log(body);
-     if (error)
+    if (error)
       return res
         .status(400)
         .json({ success: false, error: error.details[0].message });
@@ -106,7 +106,7 @@ export default async (req, res) => {
         subject: ` ${Type} Ticket request for ${Account} from ${User_Name}`,
         html: `<p>Please process with this ticket </p><br>
        <p><strong> customer  Name: </strong> ${Name} </p><br>
-       <p><strong> customer  Incident: </strong> ${Incident} </p><br>
+       <p><strong> customer  Incident: </strong> ${nextSeq} </p><br>
        <p><strong> customer Phone: </strong> ${PhoneNumber} </p><br>
        <p><strong> customer Address: </strong> ${Address} </p><br>
        <p><strong> customer Serial Number : </strong> ${Serial_Number} </p><br>
