@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 import {
   Grid,
   TextField,
@@ -39,11 +40,12 @@ export async function getStaticProps(context) {
 
 const dataDetails = ({ caseDetails }) => {
   const { edit, setEdit } = useState(true);
-  const { handleChange, handleSubmit, values, errors } = useForm(
+  /* const { handleChange, handleSubmit, values, errors } = useForm(
     submit,
     validate
-  );
+  );*/
   const [status, setStatus] = useState(`${caseDetails.Status}`);
+ const [xsm, setXsm] = useState(`${caseDetails.XSM_Incident}`);
 
   const Modify = () => {
     setEdit(true);
@@ -53,8 +55,13 @@ const dataDetails = ({ caseDetails }) => {
 
     caseDetails.Status = event.target.value;
   };
+  const handleChange = (e) => {
+    setXsm(e.target.value);
+    console.log(`Final value is  ${caseDetails.XSM_Incident}`);
+  };
 
   function submit(e) {
+    caseDetails.XSM_Incident = xsm;
     e.preventDefault();
     var config = {
       method: "PUT",
@@ -69,6 +76,10 @@ const dataDetails = ({ caseDetails }) => {
       .then(function (response) {
         const datas = response.data;
         console.log(datas);
+        if (response.status == 200) {
+          toast.success("Update succeed ");
+          //console.log(JSON.stringify(response.data));
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -144,7 +155,7 @@ const dataDetails = ({ caseDetails }) => {
                     disabled
                   />
                 </Grid>
-              
+
                 <Grid item xs={6}>
                   <FormControl variant="outlined" fullWidth={true}>
                     <InputLabel id="Status">Status</InputLabel>
@@ -172,8 +183,9 @@ const dataDetails = ({ caseDetails }) => {
                     name="XSM_Incident"
                     label="XSM_Incident Number "
                     variant="outlined"
-                    placeholder="Ètrieyd" 
-                    value = {status} //{caseDetails.XSM_Incident}
+                    placeholder="Ètrieyd"
+                    onChange={handleChange}
+                    value={xsm} //{caseDetails.XSM_Incident}
                     fullWidth
                   />
                 </Grid>
