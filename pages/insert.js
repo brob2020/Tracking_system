@@ -132,7 +132,7 @@ const Insert = (lastId) => {
             name="Incident #"
             variant="outlined"
             disabled={true}
-            value={lastId.lastId + 1}
+            value={Number(lastId.lastId) + 1}
             fullWidth={true}
           />
         ) : (

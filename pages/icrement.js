@@ -1,59 +1,121 @@
 import React, { useState, useEffect } from "react";
-import { TextField } from "@material-ui/core";
 import Link from "next/link";
+import {
+  Grid,
+  TextField,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControl,
+  Button,
+  Checkbox,
+  Icon,
+  Typography,
+} from "@material-ui/core";
 
 const icrement = ({ datas }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [filtValue, setFiltValue] = useState("Incident");
 
-  const SearchById = () => {
-    console.log(id);
+  const Filter = (event) => {
+    setFiltValue(event.target.value);
+
+    //caseDetails.Status = event.target.value;
   };
 
   return (
-    <div className="card">
-      <TextField
-        id="Search by Tracking"
-        name="Search "
-        onChange={(e) => {
-          setSearchTerm(e.target.value);
-        }}
-        label="Search by Tracking"
-        variant="outlined"
-      />
-      <div>
-        <ul className="grid">
-          <div>
-            {datas.data
-              .filter((data) => {
-                if (searchTerm == "") {
-                  return data;
-                } else if (
-                  data.Incident.toString()
-                    .toLowerCase()
-                    .includes(searchTerm.toLocaleLowerCase())
-                ) {
-                  return data;
-                }
-              })
-              .map((data) => (
-                <Link href={"/Modelisation/ " + data._id} key={data._id}>
-                  <a>
-                    <li className="card">
-                      <h3>Incident #</h3>
-                      {data.Incident}
-                      <h3> Requested By : {data.Name} </h3>
-                      <h3>Account :</h3> {data.Account}
-                      <h3>Serial Number :</h3> {data.Serial_Number}
-                      <h3>Description :</h3> {data.Description}
-                      <h4> Status : </h4> {data.Status}
-                    </li>
-                  </a>
-                </Link>
-              ))}
-          </div>
-        </ul>
+    <>
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
+          <TextField
+            id={`Search by ${filtValue}`}
+            name="Search "
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
+            label={`Search by ${filtValue}`}
+            variant="outlined"
+            fullWidth={true}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <FormControl variant="outlined" fullWidth={true}>
+            <InputLabel id="Searh Value ">Searh Value </InputLabel>
+            <Select
+              labelId="Searh Value "
+              required={true}
+              label="Searh Value "
+              onChange={Filter}
+              value={filtValue}
+            >
+              <MenuItem value=""></MenuItem>
+
+              <MenuItem value={"Incident"}>Incident</MenuItem>
+              <MenuItem value={"Serial_Number"}>Serial_Number</MenuItem>
+              <MenuItem value={"Status"}>Status</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
+
+      <div className="card">
+        <div>
+          <ul className="grid">
+            <div>
+              {datas.data
+                .filter((data) => {
+                  if (searchTerm == "") {
+                    return data;
+                  } else if (
+                    filtValue == "Incident" &&
+                    data.Incident.toString()
+                      .toLowerCase()
+                      .includes(searchTerm.toLocaleLowerCase())
+                  ) {
+                    return data;
+                  } else if (
+                    filtValue == "Serial_Number" &&
+                    data.Serial_Number.toString()
+                      .toLowerCase()
+                      .includes(searchTerm.toLocaleLowerCase())
+                  ) {
+                    return data;
+                  } else if (
+                    filtValue == "Name" &&
+                    data.Name.toString()
+                      .toLowerCase()
+                      .includes(searchTerm.toLocaleLowerCase())
+                  ) {
+                    return data;
+                  } else if (
+                    filtValue == "Status" &&
+                    data.Status.toString()
+                      .toLowerCase()
+                      .includes(searchTerm.toLocaleLowerCase())
+                  ) {
+                    return data;
+                  }
+                })
+                .map((data) => (
+                  <Link href={"/Modelisation/ " + data._id} key={data._id}>
+                    <a>
+                      <li className="card">
+                        <h3>Incident #</h3>
+                        {data.Incident}
+                        <h3> Requested By : {data.Name} </h3>
+                        <h3>Account :</h3> {data.Account}
+                        <h3>Serial Number :</h3> {data.Serial_Number}
+                        <h3>Description :</h3> {data.Description}
+                        <h4> Status : </h4> {data.Status}
+                      </li>
+                    </a>
+                  </Link>
+                ))}
+            </div>
+          </ul>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 export async function getStaticProps() {

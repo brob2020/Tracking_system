@@ -43,15 +43,14 @@ const dataDetails = ({ caseDetails }) => {
     submit,
     validate
   );
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState(`${caseDetails.Status}`);
 
   const Modify = () => {
     setEdit(true);
   };
   const handleStatus = (event) => {
     setStatus(event.target.value);
-    console.log(status);
-    console.log(caseDetails.Status);
+
     caseDetails.Status = event.target.value;
   };
 
@@ -83,10 +82,10 @@ const dataDetails = ({ caseDetails }) => {
         <TextField
           name="Incident #"
           variant="outlined"
-          disabled={true}
+          disabled
           value={caseDetails.Incident}
-          fullWidth={true}
-          disabled={true}
+          fullWidth
+          disabled
         />
       </div>
       <div className={styles.container}>
@@ -100,8 +99,8 @@ const dataDetails = ({ caseDetails }) => {
                     label="Serial Number "
                     variant="outlined"
                     value={caseDetails.Serial_Number}
-                    fullWidth={true}
-                    disabled={true}
+                    fullWidth
+                    disabled
                   />
                 </Grid>
 
@@ -111,8 +110,8 @@ const dataDetails = ({ caseDetails }) => {
                     label="Account  "
                     variant="outlined"
                     value={caseDetails.Account}
-                    fullWidth={true}
-                    disabled={true}
+                    fullWidth
+                    disabled
                   />
                 </Grid>
 
@@ -121,50 +120,31 @@ const dataDetails = ({ caseDetails }) => {
                   label="Call Type"
                   variant="outlined"
                   value={caseDetails.Type}
-                  fullWidth={true}
-                  disabled={true}
+                  fullWidt
+                  disabled
                 />
 
                 <Grid item xs={6}>
                   <TextField
                     name="Name"
-                    label="Serial Number "
+                    label="Name "
                     variant="outlined"
                     value={caseDetails.Name}
-                    fullWidth={true}
-                    disabled={true}
+                    fullWidt
+                    disabled
                   />
                 </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    name="Serial_Number"
-                    label="Serial Number "
-                    variant="outlined"
-                    value={caseDetails.Serial_Number}
-                    fullWidth={true}
-                    disabled={true}
-                  />
-                </Grid>
+
                 <Grid item xs={6}>
                   <TextField
                     name="Phone Number"
                     label="Phone Number "
                     variant="outlined"
                     value={caseDetails.PhoneNumber}
-                    fullWidth={true}
-                    disabled={true}
+                    disabled
                   />
                 </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    name="Serial_Number"
-                    label="Serial Number "
-                    variant="outlined"
-                    value={caseDetails.Serial_Number}
-                    fullWidth={true}
-                    disabled={true}
-                  />
-                </Grid>
+              
                 <Grid item xs={6}>
                   <FormControl variant="outlined" fullWidth={true}>
                     <InputLabel id="Status">Status</InputLabel>
@@ -175,15 +155,11 @@ const dataDetails = ({ caseDetails }) => {
                       onChange={handleStatus}
                       value={status}
                       displayEmpty
-                      placeholder="noneP"
 
                       //onChange={handleStatus}
                       //disabled={dispIn}
                     >
-                      <MenuItem value="" disabled>
-                        {" "}
-                        {caseDetails.Status}
-                      </MenuItem>
+                      <MenuItem value="test " disabled></MenuItem>
 
                       <MenuItem value={"Picked"}>Picked</MenuItem>
                       <MenuItem value={"Close"}>Close</MenuItem>
@@ -196,8 +172,9 @@ const dataDetails = ({ caseDetails }) => {
                     name="XSM_Incident"
                     label="XSM_Incident Number "
                     variant="outlined"
-                    value={caseDetails.XSM_Incident}
-                    fullWidth={edit}
+                    placeholder="Ètrieyd" 
+                    value = {status} //{caseDetails.XSM_Incident}
+                    fullWidth
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -222,7 +199,7 @@ const dataDetails = ({ caseDetails }) => {
                     rows={4}
                     variant="outlined"
                     fullWidth={true}
-                    value={new comment()}
+                    value={caseDetails.Description}
                     disabled={edit}
                   />
                 </Grid>

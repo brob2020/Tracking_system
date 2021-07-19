@@ -42,6 +42,18 @@ const getDatata = () => {
         width: 270,
       },
       {
+        label: "Status",
+        field: "Status",
+        sort: "asc",
+        width: 270,
+      },
+      {
+        label: "XSM_Incident",
+        field: "XSM_Incident",
+        sort: "asc",
+        width: 270,
+      },
+      {
         label: "Name",
         field: "Name",
         sort: "asc",
@@ -93,7 +105,7 @@ const getDatata = () => {
             ...data,
             rows: response.data.data,
           });
-          console.log(rows);
+          //console.log(rows);
         }
       })
       .catch((error) => {
@@ -121,6 +133,6 @@ const getDatata = () => {
       })}
     </>
   );*/
-};;
+};
 
 export default getDatata;
